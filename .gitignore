@@ -1,0 +1,15 @@
+# Python
+generate_charts.py
+__pycache__/
+*.py[cod]
+
+# Thesis / private docs
+ACS.pdf
+
+# IDE / OS
+.claude/
+.DS_Store
+Thumbs.db
+
+# Node (if ever added)
+node_modules/
