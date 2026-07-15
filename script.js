@@ -142,6 +142,37 @@ The project explored how hybrid data architectures can support smart city analyt
     live: null,
   },
   {
+    id: '06',
+    domain: 'AI · Language Learning',
+    title: 'Mein Deutsch Freund',
+    type: 'Personal · Local LLM · Fine-Tuning',
+    typeBadges: ['Personal Project', 'Local LLM'],
+    featured: false,
+    preview2: 'A local AI "German friend" (Max from Stuttgart) built with Ollama + Gemma 3 4B — grammar correction cards, automatic memory, voice I/O, and a QLoRA fine-tuning pipeline trained on 414 real pseudonymised WhatsApp conversations. Built while learning German myself.',
+    description: `I'm learning German (A1) while preparing for a Werkstudent role in Stuttgart. Language apps give you flashcards — what I needed was a friend. So I built one: Max, a Stuttgart local with a job, hobbies, and a flatmate who never does the dishes. He texts like a real person, remembers what you share, fixes your grammar with visual diffs, and speaks aloud with neural German voices.
+
+Everything runs 100% locally (Ollama + Gemma 3 4B) — no subscription, no cloud, no data leaving the machine. Phase 2 fine-tunes the model on real German WhatsApp conversations (MoCoDa2 corpus, 414 chats, ~76k messages) so the casual texting style lives in the weights, not just the prompt.`,
+    stats: [
+      { val: '414',   lbl: 'Real Chats (train)' },
+      { val: '308k',  lbl: 'Tokens' },
+      { val: '100%',  lbl: 'Local / Private' },
+      { val: 'A1→B2', lbl: 'Learner Levels' },
+    ],
+    tech: ['Ollama', 'Gemma 3 4B', 'QLoRA', 'Unsloth', 'JavaScript', 'Python', 'Edge TTS', 'Web Speech API', 'GGUF', 'MoCoDa2'],
+    bullets: [
+      '"Max from Stuttgart" persona — short reactions, double-texting, casual German slang (hab, ne, voll). Adapts vocabulary to learner level A1–B2.',
+      'Dedicated grammar-correction call with client-side diffing — separating correction from conversation fixed silent failures in small 4B models.',
+      'Automatic memory extraction — facts you share get embedded and injected into future context windows.',
+      'Click-to-translate any message; click any word for an inline dictionary popup; vocabulary book with tap-to-reveal self-testing.',
+      'Neural German voices (Edge TTS), speed control, per-message playback, and hands-free Conversation Mode (auto-send on pause → Max replies aloud → mic reopens).',
+      'Fine-tuning pipeline: MoCoDa2 corpus → ChatML JSONL → QLoRA on Gemma 3 4B (RTX 4090, ~1–2h, ≈€1) → Q4_K_M GGUF → ollama create max-de.',
+      'Data-minimized pipeline: text + anonymous speaker roles only — no names, ages, or demographics extracted or stored.',
+    ],
+    images: [],
+    github: 'https://github.com/veeravenkatsaikondaiahpalpu-hue/Mein-deutscher-Freund',
+    live: null,
+  },
+  {
     id: '05',
     domain: 'ML · Classification',
     title: 'Study Abroad Decision Predictor',
@@ -499,6 +530,18 @@ function closeLightbox() {
 
 if (lbX) lbX.addEventListener('click', closeLightbox);
 if (lbBg) lbBg.addEventListener('click', e => { if (e.target === lbBg || e.target === lbImg) closeLightbox(); });
+
+/* ── Seeking Banner ─────────────────────────────────────────────────────── */
+const sbClose  = document.getElementById('sb-close');
+const sbBanner = document.getElementById('seeking-banner');
+if (sbClose && sbBanner) {
+  sbClose.addEventListener('click', () => {
+    sbBanner.style.maxHeight = '0';
+    sbBanner.style.opacity   = '0';
+    sbBanner.style.padding   = '0';
+    setTimeout(() => sbBanner.remove(), 350);
+  });
+}
 
 /* ── Cursor Glow (ambient radial behind cursor) ─────────────────────────── */
 if (window.matchMedia('(pointer: fine)').matches) {
