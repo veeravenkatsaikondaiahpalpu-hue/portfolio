@@ -7,29 +7,35 @@
 const PROJECTS = [
   {
     id: '01',
-    domain: 'AI / LLM · Master\'s Thesis',
+    domain: 'AI / LLM · Flagship Project',
     title: 'LevelUp AI',
     type: 'Full Stack · QLoRA Fine-Tuning',
-    typeBadges: ['Master\'s Thesis', 'Full Stack'],
+    typeBadges: ['Flagship Project', 'AI Security'],
     featured: true,
     preview2: 'A gamified self-improvement app powered by a QLoRA fine-tuned LLaMA 3.2 model, delivering personalised RPG-style coaching quests. Achieved ROUGE-L scores of 90–94% across all user archetypes — a 10× improvement over the baseline.',
-    description: `LevelUp AI is the centrepiece of my Master's thesis — a production-ready self-improvement platform that fuses gamified RPG mechanics with a domain-adapted large language model. Users are classified into one of seven archetypes (TITAN, ORACLE, PHANTOM, SAGE, MUSE, EMPIRE, GG) and receive AI-generated weekly quests tailored to their personality and goals.
+    description: `LevelUp AI is my flagship project and the one I have invested the most time in — a production-engineered self-improvement platform that fuses gamified RPG mechanics with a domain-adapted large language model. Users are classified into one of seven archetypes (TITAN, ORACLE, PHANTOM, SAGE, MUSE, EMPIRE, GG) and receive AI-generated weekly quests tailored to their personality and goals.
 
 The core innovation is a QLoRA fine-tuned LLaMA 3.2 model trained on a curated dataset of self-improvement content structured as few-shot prompts. After fine-tuning, ROUGE-L scores jumped from ~9% to over 91% on average — validating that domain adaptation dramatically outperforms zero-shot prompting for structured coaching output.`,
     stats: [
       { val: '92.6%', lbl: 'Avg ROUGE-L' },
-      { val: '4-bit', lbl: 'QLoRA Quant' },
-      { val: '7',     lbl: 'User Archetypes' },
       { val: '10×',   lbl: 'Score Gain' },
+      { val: '156',   lbl: 'Automated Tests' },
+      { val: '12',    lbl: 'OWASP Rules' },
     ],
-    tech: ['LLaMA 3.2', 'QLoRA', 'LoRA', 'FastAPI', 'React Native', 'MongoDB', 'Redis', 'Google Cloud', 'Python', 'HuggingFace'],
+    tech: ['LLaMA 3.2', 'QLoRA', 'OWASP LLM Top 10', 'Guardrails', 'FastAPI', 'LoRA', 'React Native', 'MongoDB', 'Redis', 'Google Cloud', 'Python', 'HuggingFace', 'pytest', 'GitHub Actions', 'Anomaly Detection', 'Qwen2.5-VL'],
     bullets: [
       'Fine-tuned LLaMA 3.2 with QLoRA (4-bit quantisation) on structured few-shot self-improvement data.',
       'Designed 7-archetype user classification system; each archetype receives tailored quest generation prompts.',
-      'Built FastAPI backend with multi-database architecture: MongoDB (user data), Redis (sessions/cache), Neo4j (relationships).',
       'Evaluated with ROUGE-L metric across all 7 archetypes — average score of 92.6% vs ~9.4% baseline.',
+      'Built a two-layer runtime guardrail: 12 detection rules, each mapped to an OWASP LLM Top 10 (2025) risk ID, screening untrusted input before inference and model output before it reaches the user — blocks prompt injection, system-prompt extraction and data exfiltration (chatbot/guardrails/patterns.py, guard.py).',
+      'Studied EchoLeak (CVE-2025-32711) — a zero-click exfiltration chain that defeated a purpose-built classifier — which is why the design uses layered controls rather than a single filter.',
+      '156 automated tests across the project, 25 of them dedicated to the guardrail, all running in a GitHub Actions CI pipeline on every push, with ruff linting.',
+      'Anomaly-detection package (anomaly_detection/) training three class-balanced detectors on real activity-log data — Logistic Regression as an interpretable baseline, Decision Tree, and Random Forest (AUC-ROC 0.991) — returning a confidence score and an anomaly type rather than a bare flag.',
+      'Multimodal (image + text) inference endpoint using Qwen2.5-VL-7B, with image ingestion, preprocessing and a FastAPI upload route.',
+      'Dataset: 76,616 records curated from 9 heterogeneous sources — deduplicated, annotated and quality-checked, with inclusion/exclusion decisions documented.',
       'Integrated sentiment analysis (Voting Ensemble, 87.3% accuracy) to track user emotional trajectory.',
-      'Anomaly detection pipeline (Random Forest, AUC-ROC 0.991) flags disengagement patterns in real time.',
+      'Built FastAPI backend with multi-database architecture: MongoDB (user data), Redis (sessions/cache), Neo4j (relationships).',
+      'Production engineering: packaged Python project, structured logging, separate packages per concern, FastAPI with streaming inference.',
       'Deployed model inference on Google Cloud Vertex AI for scalable serving.',
     ],
     images: [
@@ -316,9 +322,21 @@ const revealObs = new IntersectionObserver(
       revealObs.unobserve(entry.target);
     }
   }),
-  { threshold: 0.1 }
+  { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
 );
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+function observeReveals() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObs.observe(el));
+}
+
+// The observer can miss elements already in view on a direct #anchor load; never leave content invisible.
+function revealAll() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    el.classList.add('visible');
+    revealObs.unobserve(el);
+  });
+}
+window.addEventListener('load', () => setTimeout(revealAll, 1200));
 
 /* ── Count-Up Animation ─────────────────────────────────────────────────── */
 function countUp(el) {
@@ -415,13 +433,11 @@ function renderProjects() {
 
     card.addEventListener('click', () => openModal(p));
     grid.appendChild(card);
-
-    // Observe for reveal
-    revealObs.observe(card);
   });
 }
 
 renderProjects();
+observeReveals();
 
 /* ── Modal ───────────────────────────────────────────────────────────────── */
 const modalBg   = document.getElementById('modal-bg');

@@ -513,6 +513,9 @@ body.cursor-hover .c-ring { width: 56px; height: 56px; border-color: var(--teal)
   opacity: 1;
   transform: none;
 }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
 
 /* ── About ───────────────────────────────────────────────────────────────── */
 .about-layout {
@@ -1053,6 +1056,14 @@ body.cursor-hover .c-ring { width: 56px; height: 56px; border-color: var(--teal)
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+.contact-avail {
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.7;
+  margin-top: 2.2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border);
 }
 
 /* ── Footer ──────────────────────────────────────────────────────────────── */
