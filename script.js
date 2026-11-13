@@ -61,7 +61,7 @@ The core innovation is a QLoRA fine-tuned LLaMA 3.2 model trained on a curated d
     type: 'ML Pipeline · NLP · Cloud',
     typeBadges: ['Ensemble ML', 'NLP'],
     featured: false,
-    preview2: 'A hybrid loan risk platform combining classical ML classifiers with NLP-driven sentiment extraction from borrower statements. Deployed on Google Cloud Vertex AI with a real-time Streamlit dashboard.',
+    preview2: 'A hybrid loan risk platform combining classical ML classifiers with explainable NLP risk-signal extraction from borrower statements. Trained on Google Cloud Vertex AI AutoML, with a deterministic offline fallback and a live Streamlit dashboard.',
     description: `A production-grade loan risk evaluation system that goes beyond numeric features by analysing borrower-submitted text using NLP sentiment analysis. The system fuses structured financial data with unstructured text signals through an ensemble model stack, then exposes predictions via a Streamlit dashboard.
 
 The pipeline ingests applicant data, runs TF-IDF + logistic regression for sentiment scoring on free-text fields, and merges the sentiment features with traditional financial indicators before feeding into XGBoost and LightGBM ensemble classifiers. The final model achieves strong AUC-ROC performance with explainable outputs for risk officers.`,
@@ -86,8 +86,8 @@ The pipeline ingests applicant data, runs TF-IDF + logistic regression for senti
       { src: 'images/rf_feature_importance.png',    cap: 'Random Forest — Feature Importance' },
       { src: 'images/gb_feature_importance.png',    cap: 'Gradient Boosting — Feature Importance' },
     ],
-    github: 'https://github.com/veeravenkatsaikondaiahpalpu-hue',
-    live: null,
+    github: 'https://github.com/veeravenkatsaikondaiahpalpu-hue/Loan_Risk_prediction',
+    live: 'https://loan-risk-decision-system.streamlit.app',
   },
   {
     id: '03',
