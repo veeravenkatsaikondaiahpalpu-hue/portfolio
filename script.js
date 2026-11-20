@@ -12,13 +12,13 @@ const PROJECTS = [
     type: 'Full Stack · QLoRA Fine-Tuning',
     typeBadges: ['Flagship Project', 'AI Security'],
     featured: true,
-    preview2: 'A gamified self-improvement app powered by a QLoRA fine-tuned LLaMA 3.2 model, delivering personalised RPG-style coaching quests. Achieved ROUGE-L scores of 90–94% across all user archetypes — a 10× improvement over the baseline.',
+    preview2: 'A gamified self-improvement app powered by a QLoRA fine-tuned LLaMA 3.2 model, delivering personalised RPG-style coaching quests. Fine-tuning lifted held-out ROUGE-L from 0.157 to 0.267 — a 70% relative gain — measured against the base model on 200 leak-free samples, with all seven archetypes improving.',
     description: `LevelUp AI is my flagship project and the one I have invested the most time in — a production-engineered self-improvement platform that fuses gamified RPG mechanics with a domain-adapted large language model. Users are classified into one of seven archetypes (TITAN, ORACLE, PHANTOM, SAGE, MUSE, EMPIRE, GG) and receive AI-generated weekly quests tailored to their personality and goals.
 
-The core innovation is a QLoRA fine-tuned LLaMA 3.2 model trained on a curated dataset of self-improvement content structured as few-shot prompts. After fine-tuning, ROUGE-L scores jumped from ~9% to over 91% on average — validating that domain adaptation dramatically outperforms zero-shot prompting for structured coaching output.`,
+The core of it is a QLoRA fine-tuned LLaMA 3.2 3B trained on 76,616 curated samples. To establish what the fine-tuning actually contributed, I built a held-out evaluation that runs the base model and the adapter from one loaded model via PEFT’s disable_adapter(), so both conditions share provably identical base weights, prompts and decoding — the adapter is the only variable. On 200 held-out samples, with the 2.14% of validation rows that overlap the training file removed first, ROUGE-L rose from 0.157 to 0.267 (+70% relative) and ROUGE-2 roughly doubled. All seven archetypes improved and none regressed. Absolute ROUGE is low by nature on open-ended dialogue, where many replies are valid and only one is the reference; the base-vs-tuned delta is the result, and it is reproducible with a single command.`,
     stats: [
-      { val: '92.6%', lbl: 'Avg ROUGE-L' },
-      { val: '10×',   lbl: 'Score Gain' },
+      { val: '+70%',  lbl: 'ROUGE-L vs Base' },
+      { val: '76.6k', lbl: 'Training Samples' },
       { val: '156',   lbl: 'Automated Tests' },
       { val: '12',    lbl: 'OWASP Rules' },
     ],
@@ -26,7 +26,7 @@ The core innovation is a QLoRA fine-tuned LLaMA 3.2 model trained on a curated d
     bullets: [
       'Fine-tuned LLaMA 3.2 with QLoRA (4-bit quantisation) on structured few-shot self-improvement data.',
       'Designed 7-archetype user classification system; each archetype receives tailored quest generation prompts.',
-      'Evaluated with ROUGE-L metric across all 7 archetypes — average score of 92.6% vs ~9.4% baseline.',
+      'Built the held-out evaluation harness the project lacked: base vs fine-tuned on identical prompts, leaked validation rows removed, greedy decoding for reproducibility — ROUGE-L 0.157 → 0.267 across all 7 archetypes, results versioned in the repo.',
       'Built a two-layer runtime guardrail: 12 detection rules, each mapped to an OWASP LLM Top 10 (2025) risk ID, screening untrusted input before inference and model output before it reaches the user — blocks prompt injection, system-prompt extraction and data exfiltration (chatbot/guardrails/patterns.py, guard.py).',
       'Studied EchoLeak (CVE-2025-32711) — a zero-click exfiltration chain that defeated a purpose-built classifier — which is why the design uses layered controls rather than a single filter.',
       '156 automated tests across the project, 25 of them dedicated to the guardrail, all running in a GitHub Actions CI pipeline on every push, with ruff linting.',
@@ -46,7 +46,7 @@ The core innovation is a QLoRA fine-tuned LLaMA 3.2 model trained on a curated d
       { src: 'images/levelup_ui_logactivity.png',  cap: 'Log Activity Screen' },
       { src: 'images/levelup_ui_buildconfirm.png', cap: 'Build Confirmation — Quest Generated' },
       { src: 'images/levelup_ui_oracle.png',       cap: 'Oracle Archetype — Personalised Quest' },
-      { src: 'images/levelup_rouge.png',           cap: 'ROUGE-L: Before vs After Few-Shot Prompting' },
+      { src: 'images/levelup_rouge.png',           cap: 'Separate experiment — ROUGE-L before vs after few-shot prompting (39 samples). Distinct from the held-out base-vs-fine-tuned evaluation above.' },
       { src: 'images/levelup_sentiment.png',       cap: 'Sentiment Analysis — Model Comparison' },
       { src: 'images/levelup_anomaly.png',         cap: 'Anomaly Detection — Model Comparison' },
       { src: 'images/levelup_per_class_f1.png',    cap: 'Voting Ensemble — Per-Class F1 Score' },
