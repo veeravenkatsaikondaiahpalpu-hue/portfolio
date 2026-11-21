@@ -22,7 +22,7 @@ The core of it is a QLoRA fine-tuned LLaMA 3.2 3B trained on 76,616 curated samp
       { val: '156',   lbl: 'Automated Tests' },
       { val: '12',    lbl: 'OWASP Rules' },
     ],
-    tech: ['LLaMA 3.2', 'QLoRA', 'OWASP LLM Top 10', 'Guardrails', 'FastAPI', 'LoRA', 'React Native', 'MongoDB', 'Redis', 'Google Cloud', 'Python', 'HuggingFace', 'pytest', 'GitHub Actions', 'Anomaly Detection', 'Qwen2.5-VL'],
+    tech: ['LLaMA 3.2', 'QLoRA', 'PEFT', 'OWASP LLM Top 10', 'Guardrails', 'FastAPI', 'Python', 'HuggingFace', 'Tailwind', 'pytest', 'ruff', 'GitHub Actions', 'Anomaly Detection', 'Qwen2.5-VL'],
     bullets: [
       'Fine-tuned LLaMA 3.2 with QLoRA (4-bit quantisation) on structured few-shot self-improvement data.',
       'Designed 7-archetype user classification system; each archetype receives tailored quest generation prompts.',
@@ -34,9 +34,9 @@ The core of it is a QLoRA fine-tuned LLaMA 3.2 3B trained on 76,616 curated samp
       'Multimodal (image + text) inference endpoint using Qwen2.5-VL-7B, with image ingestion, preprocessing and a FastAPI upload route.',
       'Dataset: 76,616 records curated from 9 heterogeneous sources — deduplicated, annotated and quality-checked, with inclusion/exclusion decisions documented.',
       'Integrated sentiment analysis (Voting Ensemble, 87.3% accuracy) to track user emotional trajectory.',
-      'Built FastAPI backend with multi-database architecture: MongoDB (user data), Redis (sessions/cache), Neo4j (relationships).',
+      'FastAPI backend split into separate route modules for chat, activity, profile, sentiment and vision, with structured logging and a health endpoint; progression state is held client-side, so the app needs no database.',
       'Production engineering: packaged Python project, structured logging, separate packages per concern, FastAPI with streaming inference.',
-      'Deployed model inference on Google Cloud Vertex AI for scalable serving.',
+      'Published the trained adapter to the Hugging Face Hub with a model card carrying the held-out evaluation, and shipped the frontend as a live static Space.',
     ],
     images: [
       { src: 'images/levelup_ui_splash.png',       cap: 'Splash & Login Screen' },
