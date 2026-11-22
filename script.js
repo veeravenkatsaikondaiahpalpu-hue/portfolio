@@ -124,7 +124,7 @@ The backend polls multiple space APIs (Open Notify, NASA, SpaceX) at configurabl
     domain: 'Smart City · Academic',
     title: 'Smart City Traffic & Vehicle Tracking',
     type: 'Academic · Group Project · SRH Stuttgart',
-    typeBadges: ['Academic', 'Group Project'],
+    typeBadges: ['Academic', 'Architecture & Backend'],
     featured: false,
     preview2: 'An academic smart city platform using multi-database architecture (Redis, MongoDB, Neo4j) and FastAPI to simulate real-time vehicle tracking, traffic pattern analysis, and graph-based route intelligence.',
     description: `A multi-database smart city simulation project completed as a group at SRH Hochschule Stuttgart. The system models urban vehicle flows and traffic patterns using a purpose-built backend that leverages each database's strengths: Redis for live state, MongoDB for event history, and Neo4j for graph-based road network queries.
@@ -138,7 +138,7 @@ The project explored how hybrid data architectures can support smart city analyt
     ],
     tech: ['Python', 'FastAPI', 'Neo4j', 'Redis', 'Cypher', 'Socket.IO', 'React', 'OpenStreetMap', 'GTFS', 'REST API', 'Data Modelling'],
     bullets: [
-      'Did the project planning and built the backend: Neo4j for the road-network graph and Redis for live vehicle state. MongoDB for event logs was a teammate’s component.',
+      'Owned the system architecture, the project planning and the entire backend: Neo4j for the road-network graph with Cypher shortest-path routing, and Redis for live vehicle state. A teammate built the React frontend and the MongoDB event-log component.',
       'Built FastAPI REST API exposing live vehicle queries, route recommendations, and traffic density analytics.',
       'Implemented Cypher graph queries in Neo4j for shortest-path and congestion-aware routing algorithms.',
       'Built the FastAPI service with Socket.IO broadcasting live vehicle positions, over a road graph imported from OpenStreetMap data.',
